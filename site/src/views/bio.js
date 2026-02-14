@@ -27,7 +27,7 @@ export function renderBio() {
 
       <div class="contact-callout">
         <p>For inquiries about prints, exhibitions, licensing, or collaborations:</p>
-        <p><a href="mailto:ercfld@gmail.com">ercfld@gmail.com</a></p>
+        <p><a href="${social.instagram.url}" target="_blank" rel="noopener">Message me on Instagram @${social.instagram.handle}</a></p>
       </div>
 
       <div class="instagram-section">

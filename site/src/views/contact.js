@@ -1,3 +1,5 @@
+import { social } from '../data.js';
+
 export function renderContact() {
   return `
     <div class="text-page">
@@ -5,7 +7,7 @@ export function renderContact() {
       <p>For inquiries about prints, exhibitions, licensing, or collaborations:</p>
       <div style="margin-top: 32px;">
         <p class="contact-line">
-          <a href="mailto:hello@ericflood.com">hello@ericflood.com</a>
+          <a href="${social.instagram.url}" target="_blank" rel="noopener">Message me on Instagram @${social.instagram.handle}</a>
         </p>
       </div>
     </div>
