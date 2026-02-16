@@ -13,14 +13,17 @@ const allSlides = [];
 export function renderHome() {
   allSlides.length = 0;
 
-  projects.forEach((project) => {
-    project.images.forEach((img) => {
-      allSlides.push({
-        src: imagePath(project.slug, img.file),
-        project,
-      });
-    });
-  });
+  const maxImages = Math.max(...projects.map((p) => p.images.length));
+  for (let i = 0; i < maxImages; i++) {
+    for (const project of projects) {
+      if (i < project.images.length) {
+        allSlides.push({
+          src: imagePath(project.slug, project.images[i].file),
+          project,
+        });
+      }
+    }
+  }
 
   const slidesHTML = allSlides
     .map(

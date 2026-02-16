@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:www.ianteh.com)"
+      "WebFetch(domain:www.ianteh.com)",
+      "Bash(ls:*)"
     ]
   }
 }
