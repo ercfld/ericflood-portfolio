@@ -16,12 +16,11 @@ export function renderHome() {
   const maxImages = Math.max(...projects.map((p) => p.images.length));
   for (let i = 0; i < maxImages; i++) {
     for (const project of projects) {
-      if (i < project.images.length) {
-        allSlides.push({
-          src: imagePath(project.slug, project.images[i].file),
-          project,
-        });
-      }
+      const imgIndex = i % project.images.length;
+      allSlides.push({
+        src: imagePath(project.slug, project.images[imgIndex].file),
+        project,
+      });
     }
   }
 
