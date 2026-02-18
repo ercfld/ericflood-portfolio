@@ -34,7 +34,7 @@ export const projects = [
   },
   {
     slug: 'oaxaca-mexico',
-    title: 'The Soul Remembers (Oaxaca)',
+    title: 'The Soul Remembers (Oaxaca, Mexico)',
     category: 'Stories',
     images: [
       { file: '0.jpg' },
@@ -62,7 +62,7 @@ export const projects = [
   },
   {
     slug: 'cuba',
-    title: 'Monument Extended (Cuba)',
+    title: 'Monument Extended (Trinidad, Cuba)',
     category: 'Stories',
     images: [
       { file: '1.jpg' },

@@ -172,8 +172,9 @@ button {
 .dropdown {
   position: absolute;
   top: calc(100% + 14px);
-  left: -16px;
+  right: -16px;
   min-width: 220px;
+  max-width: calc(100vw - var(--page-gutter) * 2);
   background: var(--color-bg);
   padding: 10px 0;
   opacity: 0;
@@ -196,7 +197,6 @@ button {
   font-size: 13px;
   color: var(--color-text);
   transition: background var(--dur-fast);
-  white-space: nowrap;
 }
 
 .dropdown-item:hover {
