@@ -3,7 +3,10 @@
     "allow": [
       "Bash(npx vite:*)",
       "Bash(curl:*)",
-      "Bash(du -sh:*)"
+      "Bash(du -sh:*)",
+      "Bash(npm install:*)",
+      "Bash(node scripts/convert-images.js:*)",
+      "Bash(xargs du:*)"
     ]
   }
 }

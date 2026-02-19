@@ -543,6 +543,7 @@ button {
   animation: pageIn 0.4s var(--ease-out);
 }
 
+
 .story-header {
   padding: 24px var(--page-gutter) 0;
 }
@@ -639,6 +640,84 @@ button {
 .story-arrow--prev { left: 20px; }
 .story-arrow--next { right: 20px; }
 
+/* Picture element sizing */
+
+.slide picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.story-slide picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.project-card__image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.story-slide.active {
+  cursor: zoom-in;
+}
+
+/* --- Lightbox --- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-fast), visibility var(--dur-fast);
+}
+
+.lightbox.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-img-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 92vw;
+  max-height: 92vh;
+}
+
+.lightbox-img {
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+  display: block;
+  cursor: zoom-out;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 32px;
+  line-height: 1;
+  z-index: 201;
+  transition: color var(--dur-fast);
+  padding: 4px 8px;
+}
+
+.lightbox-close:hover {
+  color: #fff;
+}
+
 .story-footer {
   padding: 0 var(--page-gutter) 40px;
   max-width: calc(1100px + 2 * var(--page-gutter));
@@ -685,7 +764,7 @@ button {
 
 .text-page h1 {
   font-family: var(--font-serif);
-  font-size: 28px;
+  font-size: clamp(20px, 4vw, 28px);
   font-weight: 400;
   font-style: italic;
   margin-bottom: 36px;
@@ -820,9 +899,10 @@ button {
     grid-template-columns: 1fr;
   }
 
+  /* Minimum 44px touch targets per HIG/Material Design */
   .slide-arrow {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
   }
 
   .slide-arrow svg {
@@ -844,23 +924,21 @@ button {
     gap: 8px;
   }
 
-  .text-page h1 {
-    font-size: 23px;
-  }
-
   /* Story viewer mobile */
 
+  /* Reduced horizontal padding now that swipe is available */
   .story-stage {
-    padding: 16px 56px;
+    padding: 16px 48px;
   }
 
   .story-images {
-    height: calc(100vh - 200px);
+    height: calc(100dvh - 200px);
   }
 
+  /* Minimum 44px touch targets */
   .story-arrow {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
   }
 
   .story-arrow svg {
@@ -881,8 +959,40 @@ button {
   }
 }
 
+/* 2-column grid on tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+  .stories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 480px) {
   .slide-counter {
     display: none;
+  }
+
+  .stories-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Respect reduced-motion OS preference */
+@media (prefers-reduced-motion: reduce) {
+  .slide.active img {
+    animation: none;
+  }
+
+  .slide-progress.running {
+    animation: none;
+    width: 100%;
+  }
+
+  .slide,
+  .story-slide {
+    transition: none;
+  }
+
+  @keyframes pageIn {
+    from { opacity: 1; transform: translateY(0); }
   }
 }

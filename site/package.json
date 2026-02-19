@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-webp": "node scripts/convert-images.js"
   },
   "devDependencies": {
+    "sharp": "^0.34.5",
     "vite": "^8.0.0-beta.13"
   },
   "overrides": {

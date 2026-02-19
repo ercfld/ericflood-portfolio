@@ -71,15 +71,22 @@ function route() {
 
 function renderStoriesIndex() {
   const cards = projects
-    .map(
-      (p) => `
+    .map((p) => {
+      // Use optional coverImage field, fall back to first image
+      const coverFile = p.coverImage || p.images[0].file;
+      const src = imagePath(p.slug, coverFile);
+      const webp = src.replace(/\.[^.]+$/, '.webp');
+      return `
     <a href="#/stories/${p.slug}" class="project-card">
       <div class="project-card__image">
-        <img src="${imagePath(p.slug, p.images[0].file)}" alt="${p.title}" loading="lazy">
+        <picture>
+          <source srcset="${webp}" type="image/webp">
+          <img src="${src}" alt="${p.title}" loading="lazy">
+        </picture>
       </div>
       <h2 class="project-card__title">${p.title}</h2>
-    </a>`
-    )
+    </a>`;
+    })
     .join('');
 
   return `

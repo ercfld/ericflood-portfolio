@@ -15,7 +15,7 @@ export const social = {
 export const projects = [
   {
     slug: 'kathmandu-valley',
-    title: 'Dust in the Chest (Kathmandu Valley)',
+    title: 'Dust in the Chest (Nepal)',
     category: 'Stories',
     images: [
       { file: '1.jpg' },
@@ -34,7 +34,7 @@ export const projects = [
   },
   {
     slug: 'oaxaca-mexico',
-    title: 'The Soul Remembers (Oaxaca, Mexico)',
+    title: 'The Soul Remembers (Mexico)',
     category: 'Stories',
     images: [
       { file: '0.jpg' },
@@ -62,7 +62,7 @@ export const projects = [
   },
   {
     slug: 'cuba',
-    title: 'Monument Extended (Trinidad, Cuba)',
+    title: 'Monument Extended (Cuba)',
     category: 'Stories',
     images: [
       { file: '1.jpg' },

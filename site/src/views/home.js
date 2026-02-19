@@ -25,12 +25,25 @@ export function renderHome() {
   }
 
   const slidesHTML = allSlides
-    .map(
-      (s, i) => `
-    <div class="slide ${i === 0 ? 'active' : ''}" data-index="${i}">
-      <img ${i === 0 ? `src="${s.src}"` : ''} data-src="${s.src}" alt="">
-    </div>`
-    )
+    .map((s, i) => {
+      const webp = s.src.replace(/\.[^.]+$/, '.webp');
+      if (i === 0) {
+        return `
+    <div class="slide active" data-index="${i}">
+      <picture>
+        <source srcset="${webp}" type="image/webp">
+        <img src="${s.src}" alt="" fetchpriority="high">
+      </picture>
+    </div>`;
+      }
+      return `
+    <div class="slide" data-index="${i}">
+      <picture>
+        <source data-srcset="${webp}" type="image/webp">
+        <img data-src="${s.src}" alt="">
+      </picture>
+    </div>`;
+    })
     .join('');
 
   const first = allSlides[0]?.project;
@@ -95,6 +108,19 @@ export function initHome() {
 
   // Keyboard
   document.addEventListener('keydown', onKey);
+
+  // Touch swipe support
+  const heroEl = document.querySelector('.hero-slideshow');
+  if (heroEl) {
+    let touchStartX = 0;
+    heroEl.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    heroEl.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
+    });
+  }
 }
 
 export function destroyHome() {
@@ -120,8 +146,15 @@ function goTo(index) {
 
   const inSlide = slides[currentIndex];
   const inImg = inSlide.querySelector('img');
-  if (!inImg.src && inImg.dataset.src) {
+  const inSource = inSlide.querySelector('source[data-srcset]');
+
+  if (inImg?.dataset.src) {
     inImg.src = inImg.dataset.src;
+    delete inImg.dataset.src;
+  }
+  if (inSource?.dataset.srcset) {
+    inSource.srcset = inSource.dataset.srcset;
+    delete inSource.dataset.srcset;
   }
 
   inSlide.classList.add('active');
@@ -185,9 +218,17 @@ function resetProgress() {
 function preloadAhead() {
   for (let i = 1; i <= 3; i++) {
     const idx = (currentIndex + i) % allSlides.length;
-    const img = slides[idx]?.querySelector('img');
-    if (img && !img.src && img.dataset.src) {
+    const slideEl = slides[idx];
+    if (!slideEl) continue;
+    const img = slideEl.querySelector('img');
+    const source = slideEl.querySelector('source[data-srcset]');
+    if (img?.dataset.src) {
       img.src = img.dataset.src;
+      delete img.dataset.src;
+    }
+    if (source?.dataset.srcset) {
+      source.srcset = source.dataset.srcset;
+      delete source.dataset.srcset;
     }
   }
 }

@@ -43,5 +43,11 @@ export function renderBio() {
 }
 
 export function initBio() {
-  // Behold widget auto-initializes via the script in index.html
+  // Load Behold widget script only when Bio page is visited
+  if (!document.querySelector('script[src*="behold.so"]')) {
+    const s = document.createElement('script');
+    s.type = 'module';
+    s.src = 'https://w.behold.so/widget.js';
+    document.head.appendChild(s);
+  }
 }
